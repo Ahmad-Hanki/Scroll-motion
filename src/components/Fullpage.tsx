@@ -20,7 +20,7 @@ const Fullpage = () => {
 
   const { scrollYProgress: Translate } = useScroll({
     target: scrollRef,
-    offset: ["center end", "end end"],
+    offset: ["start 55%", "end end"],
   });
 
   const scrollYSpringTranslateX = useSpring(Translate);
