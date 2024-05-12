@@ -8,60 +8,13 @@ import { Abril_Fatface } from "next/font/google";
 import RocketIcon from "@/assets/RocketIcon";
 import monkey from "@/assets/monkey.png";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import HoverMotion from "./HoverMotion";
 const abril = Abril_Fatface({
   subsets: ["latin"],
   weight: "400",
 });
 
 const Header = () => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-  //ex:  when x = 0.5, and we set it to 1
-  // it will go like this
-  //[0.5,0.6,0.7,0.8,0.9,1]
-
-  const rotateX = useTransform(
-    mouseYSpring,
-    [-0.5, 0.5],
-    ["17.5deg", "-17.5deg"]
-  );
-
-  const rotateY = useTransform(
-    mouseXSpring,
-    [-0.5, 0.5],
-    ["-17.5deg", "17.5deg"]
-  );
-  const handleMouseMove = (e: any) => {
-    const rect = e.target.getBoundingClientRect();
-    // top and left
-    //width and height
-
-    const width = rect.width; // card width
-    const height = rect.height; // ...
-
-    const mouseX = e.clientX - rect.left; // mouse y
-    const mouseY = e.clientY - rect.top; // mouse x
-    // we want the prec %
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    // you can store them in use state to
-    x.set(xPct);
-    y.set(yPct);
-
-    // we will use useSpring for the somthing ov the moviement
-  };
-
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
   return (
     <HeaderStyled>
       <nav className="logo">
@@ -111,16 +64,7 @@ const Header = () => {
           </div>
         </div>
         <div className="image-content">
-          <motion.div
-          onMouseLeave={handleMouseLeave}
-            onMouseMove={handleMouseMove}
-            className="image"
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: "preserve-3d",
-            }}
-          >
+          <HoverMotion className="image">
             <Image
               style={{
                 transformStyle: "preserve-3d",
@@ -131,7 +75,7 @@ const Header = () => {
               height={600}
               alt="hero"
             />
-          </motion.div>
+          </HoverMotion>
         </div>
       </div>
     </HeaderStyled>

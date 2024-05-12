@@ -3,8 +3,10 @@ import Card from "@/components/Card";
 import Footer from "@/components/Footer";
 import Fullpage from "@/components/Fullpage";
 import Header from "@/components/Header";
+import HorizontalWrapper from "@/components/HozizontalWrapper";
 import SectionLayout from "@/components/SectionLayout";
 import TextSection from "@/components/TextSection";
+import Zoom from "@/components/Zoom";
 import { cards } from "@/utils/Cards";
 import styled from "styled-components";
 
@@ -14,21 +16,40 @@ export default function Home() {
       <Header />
       <MainStyled>
         <SectionLayout>
-          <div className="cards">
-            {cards.map((card, i) => {
-              return (
-                <Card
-                  key={i}
-                  title={card.title}
-                  description={card.description}
-                  image={card.image}
-                />
-              );
-            })}
-          </div>
+          <HorizontalWrapper height="40rem" direction={-1400}>
+            <div className="cards">
+              {cards.map((card, i) => {
+                return (
+                  <Card
+                    key={i}
+                    title={card.title}
+                    description={card.description}
+                    image={card.image}
+                  />
+                );
+              })}
+            </div>
+          </HorizontalWrapper>
         </SectionLayout>
+        
+          <Fullpage />
 
-        <Fullpage />
+        <SectionLayout>
+          <HorizontalWrapper height="40rem" direction={1400} initial={-1400}>
+            <div className="cards">
+              {cards.map((card, i) => {
+                return (
+                  <Card
+                    key={i}
+                    title={card.title}
+                    description={card.description}
+                    image={card.image}
+                  />
+                );
+              })}
+            </div>
+          </HorizontalWrapper>
+        </SectionLayout>
 
         <SectionLayout>
           <TextSection />
@@ -45,13 +66,15 @@ export default function Home() {
           </div>
         </SectionLayout>
 
-        
+        <SectionLayout>
+          <Zoom />
+        </SectionLayout>
+
         <SectionLayout>
           <TextSection />
         </SectionLayout>
 
         <Footer />
-
       </MainStyled>
     </>
   );
